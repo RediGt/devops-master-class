@@ -1,8 +1,30 @@
-# Currency Conversion Micro Service
-Run com.in28minutes.microservices.currencyconversionservice.CurrencyConversionServiceApplication as a Java Application.
+## Build and Run
+Pls build image by yourself to run on MAC m1
+```
+docker build -t redi2000/currency-conversion:0.0.1
+```
 
-## Resources
+<!-- RUN USING --LINK -->
+```
+docker run -d -p 8100:8100 \
+  --name=currency-conversion \
+  --link currency-exchange \
+  --env CURRENCY_EXCHANGE_SERVICE_HOST=http://currency-exchange \
+  redi2000/currency-conversion:0.0.1
+```
 
+<!-- LAUNCH AS PART OF NETWORK -->
+```
+docker network create currency-network
+
+docker run -d -p 8100:8100 \
+  --network=currency-network \
+  --env CURRENCY_EXCHANGE_SERVICE_HOST=http://currency-exchange \
+  --name=currency-conversion \
+  redi2000/currency-conversion:0.0.1
+```
+
+## Query
 - http://localhost:8100/currency-conversion/from/EUR/to/INR/quantity/10
 
 ```json
@@ -16,31 +38,13 @@ totalCalculatedAmount: 750
 }
 ```
 
-## Containerization
-
-### Troubleshooting
-
-- Problem - Caused by: com.spotify.docker.client.shaded.javax.ws.rs.ProcessingException: java.io.IOException: No such file or directory
-- Solution - Check if docker is up and running!
-- Problem - Error creating the Docker image on MacOS - java.io.IOException: Cannot run program “docker-credential-osxkeychain”: error=2, No such file or directory
-- Solution - https://medium.com/@dakshika/error-creating-the-docker-image-on-macos-wso2-enterprise-integrator-tooling-dfb5b537b44e
-
 ### Creating Containers
-
 - mvn package
 
-### Running Containers
-
-```
-docker run --publish 8100:8100 --network currency-network --env CURRENCY_EXCHANGE_URI=http://currency-exchange:8000 in28min/currency-conversion:0.0.1-SNAPSHOT
-```
-
-#### Test API 
-- http://localhost:8100/currency-conversion/from/EUR/to/INR/quantity/10
-
+#### Push
 ```
 docker login
-docker push @@@REPO_NAME@@@/currency-conversion:0.0.1-SNAPSHOT
+docker push @@@REPO_NAME@@@/currency-conversion:0.0.1-RELEASE
 ```
 
 #### Environment Variable

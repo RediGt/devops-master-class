@@ -1,15 +1,15 @@
 version: '3.7'
 services:
   currency-exchange:
-    image: in28min/currency-exchange:0.0.1-RELEASE
+    image: currency-exchange
     ports:
       - "8000:8000"
     restart: always
     networks:
-      - currency-compose-network
+      - currency-network
 
   currency-conversion:
-    image: in28min/currency-conversion:0.0.1-RELEASE
+    image: currency-conversion
     ports:
       - "8100:8100"
     restart: always
@@ -18,8 +18,8 @@ services:
     depends_on:
       - currency-exchange
     networks:
-      - currency-compose-network
+      - currency-network
   
 # Networks to be created to facilitate communication between containers
 networks:
-  currency-compose-network:
+  currency-network:

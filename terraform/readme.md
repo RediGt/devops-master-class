@@ -1,26 +1,26 @@
 # Terraform
 ## Commands Executed
 ```
-brew install terraform
-terraform --version
-terraform version
-terraform init                                      # run in project directory with main.tf
-export AWS_ACCESS_KEY_ID=*******
-export AWS_SECRET_ACCESS_KEY=*********
-terraform plan                                      # simulate action
-terraform apply                                     # execute command
-terraform console                                   # enter console (>exit)
-terraform apply -refresh=false                      # compare main.tf state with last recorded state (terraform.tfstate)
-terraform plan -out iam.tfplan                      # save main.tf to iam.tfplan
-terraform apply "iam.tfplan"                        # create resources from tfplan file
-terraform apply -target="aws_iam_user.my_iam_user"  # update/execure specific reaource from main.tf
-terraform destroy                                   # remove all resources from the cloud
-terraform validate
-terraform fmt
-terraform show
-export TF_VAR_iam_user_name_prefix = FROM_ENV_VARIABLE_IAM_PREFIX
-export TF_VAR_iam_user_name_prefix=FROM_ENV_VARIABLE_IAM_PREFIX
-terraform plan -refresh=false -var="iam_user_name_prefix=VALUE_FROM_COMMAND_LINE"
+1) brew install terraform
+2) terraform --version
+3) terraform version
+4) terraform init                                   # run in project directory with main.tf
+5) export AWS_ACCESS_KEY_ID=*******
+   export AWS_SECRET_ACCESS_KEY=*********
+6) terraform plan                                   # simulate action
+7) terraform apply                                  # execute command
+8) terraform console                                # enter console (>exit)
+9) terraform apply -refresh=false                   # compare main.tf state with last recorded state (terraform.tfstate)
+10) terraform plan -out iam.tfplan                  # save main.tf to iam.tfplan
+11) terraform apply "iam.tfplan"                    # create resources from tfplan file
+12) terraform apply -target="aws_iam_user.my_iam_user" # update/execure specific reaource from main.tf
+13) terraform destroy                               # remove all resources from the cloud
+14) terraform validate                              # check template for errors
+15) terraform fmt                                   # autoformats templates
+16) terraform show                                  # print present state of resources (.tfstate)
+17) export TF_VAR_iam_user_name_prefix=FROM_ENV_VARIABLE_IAM_PREFIX # define TF variables as ENV variables
+18) terraform plan -refresh=false -var="iam_user_name_prefix=VALUE_FROM_COMMAND_LINE" # Highest priority - override variables from command line
+19) terraform plan -var-file="some-file.tfvars"     # apply variables from custom file
 terraform apply -target=aws_default_vpc.default
 terraform apply -target=data.aws_subnet_ids.default_subnets
 terraform apply -target=data.aws_ami_ids.aws_linux_2_latest_ids

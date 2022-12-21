@@ -22,7 +22,7 @@
 18) terraform plan -refresh=false -var="iam_user_name_prefix=VALUE_FROM_COMMAND_LINE" # Highest priority - override variables from command line
 19) terraform plan -var-file="some-file.tfvars"  # apply variables from custom file
 20) terraform apply -target=aws_default_vpc.default # update/execute specific resource
-terraform apply -target=data.aws_subnet_ids.default_subnets
+21) terraform apply -target=data.aws_subnets.default_subnets # project 04.2 - necessaty preliminary stepec2-13-53-175-231.eu-north-1.compute.amazonaws.com
 terraform apply -target=data.aws_ami_ids.aws_linux_2_latest_ids
 terraform apply -target=data.aws_ami.aws_linux_2_latest
 terraform workspace show                        

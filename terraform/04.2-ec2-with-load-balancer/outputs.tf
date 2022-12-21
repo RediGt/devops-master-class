@@ -3,9 +3,9 @@ output "aws_security_group_http_server_details" {
 }
 
 output "http_server_public_dns" {
-  value = values(aws_instance.http_servers).*.id
+  value = aws_instance.http_servers
 }
 
-output "elb_public_dns" {
-  value = aws_elb.elb
+output "load_balancer_public_dns" {
+  value = aws_elb.load_balancer
 }

@@ -23,8 +23,6 @@
 19) terraform plan -var-file="some-file.tfvars" # apply variables from custom file
 20) terraform apply -target=aws_default_vpc.default # update/execute specific resource
 21) terraform apply -target=data.aws_subnets.default_subnets # project 04.2 - necessaty preliminary step
-<!-- terraform apply -target=data.aws_ami_ids.aws_linux_2_latest_ids -->
-<!-- terraform apply -target=data.aws_ami.aws_linux_2_latest -->
 22) terraform workspace show                    # current workspace
 23) terraform workspace new prod-env            # set new workspace
 24) terraform workspace select default          # switch to defined workspace

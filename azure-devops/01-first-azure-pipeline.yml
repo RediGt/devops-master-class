@@ -36,5 +36,5 @@ jobs:
   - Job2
   - Job3
   steps:
-  - script: echo Job3!
+  - script: echo Job4!
     displayName: 'Run a one-line script'

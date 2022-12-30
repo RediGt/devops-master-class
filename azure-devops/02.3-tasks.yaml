@@ -1,0 +1,60 @@
+trigger:
+  - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+    
+  # Stages always run sequentially if no DEPENDENCIES !!!
+  # Jobs run in parallel if no DEPENDENCIES
+  stages:
+    - stage: Build
+      jobs:
+      - job: FirstJob
+        variables: # Job level variables.
+          jobVar: myFirstJob
+        steps:
+        - bash: echo Build FirstJob
+        - bash: echo $(PipelineLevelVariable)
+        - bash: echo $(Build.BuildNumber)
+        - bash: ls -R $(System.DefaultWorkingDirectory) # Content inside Default WDir
+        - task: CopyFiles@2 # Task that copies all *.yaml & *.tf from source to destination
+          inputs:
+            SourceFolder: '$(System.DefaultWorkingDirectory)'
+            Contents: |
+              **/*.yaml
+              **/*.tf
+            TargetFolder: '$(Build.ArtifactStagingDirectory)'
+        - bash: ls -R $(Build.ArtifactStagingDirectory)
+        - task: PublishBuildArtifacts@1 # Here we publish results of the stage to make
+          # them available in next stages
+          inputs:
+            PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+            ArtifactName: 'drop'
+            publishLocation: 'Container'
+      - job: SecondJob
+        steps:
+        - bash: echo Build SecondJob
+    - stage: DevDeploy
+      variables: # Stage level variables. Here we used it in a job below
+        environment: Dev
+      dependsOn: Build
+      jobs:
+      - job: DevDeployJob
+        steps:
+        - bash: echo DevDeployJob
+        - bash: echo $(environment)DeployJob # Usage of Stage level variable
+    - stage: QADeploy
+      dependsOn: Build
+      jobs:
+      - job: QADeployJob
+        steps:
+        - bash: echo QADeployJob
+    - stage: ProdDeploy
+      dependsOn: 
+      - DevDeploy
+      - QADeploy
+      jobs:
+      - job: ProdDeployJob
+        steps:
+        - bash: echo ProdDeployJob
+   

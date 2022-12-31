@@ -1,13 +1,6 @@
 trigger:
 - master
 
-# strategy:
-#   matrix:
-#     linux:
-#       operatingSystem: 'ubuntu-latest'
-#     mac:
-#       operatingSystem: 'macos-latest'
-
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -20,7 +13,7 @@ stages:
 - stage: DevDeploy
   jobs:
   - deployment: DevDeployJob
-    environment: Dev
+    environment: Dev # Will be registered under "Azure Devops -> Environments"
     strategy:
       runOnce:
         deploy:
@@ -29,7 +22,8 @@ stages:
 - stage: QADeploy
   jobs:
   - deployment: QADeployJob
-    environment: QA
+    environment: QA # Will be registered under "Azure Devops -> Environments"
+                    # Here APPROVARS and CHECKS can be configured
     strategy:
       runOnce:
         deploy:

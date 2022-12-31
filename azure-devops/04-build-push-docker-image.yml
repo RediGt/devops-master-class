@@ -2,7 +2,7 @@ trigger:
 - master
 
 resources:
-- repo: self
+- repo: self # The Repo we are working with
 
 variables:
   tag: '$(Build.BuildId)'
@@ -22,4 +22,6 @@ stages:
         repository: 'in28min/currency-exchange-devops'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
-        tags: '$(tag)'
+        tags: '$(tag)' # See variables above
+        # tags: |
+        #   $(tag)

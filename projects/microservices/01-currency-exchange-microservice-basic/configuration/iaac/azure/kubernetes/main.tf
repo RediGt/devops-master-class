@@ -1,3 +1,4 @@
+# Specific of Azure. All resources should be in a Resoiurce Group
 resource "azurerm_resource_group" "resource_group" {
   name     = "${var.resource_group}_${var.environment}"
   location = var.location

@@ -12,29 +12,36 @@ steps:
   inputs:
     secureFile: 'azure_rsa.pub'
 
+# aka TERRAFORM INIT
 - task: TerraformCLI@0
   inputs:
     command: 'init'
+    # Path to where TF project foles are located, form the project root
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    # commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
     backendType: 'azurerm'
     backendServiceArm: 'azure-resource-manager-service-connection'
     ensureBackend: true
     backendAzureRmResourceGroupName: 'terraform-backend-rg'
     backendAzureRmResourceGroupLocation: 'westeurope'
+    # any unique name
     backendAzureRmStorageAccountName: 'storageacctrangaxyz'
+    # any unique name
     backendAzureRmContainerName: 'storageacctrangacontainer'
+    # any *.tfstate name
     backendAzureRmKey: 'kubernetes-dev.tfstate'
 
+# aka TERRAFORM APPLY
 - task: TerraformCLI@0
   inputs:
     command: 'apply'
     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
     environmentServiceName: 'azure-resource-manager-service-connection'
+    # $(client_id) and others - to be passed as ENV-VARs
     commandOptions: '-var client_id=$(client_id) -var client_secret=$(client_secret) -var ssh_public_key=$(publickey.secureFilePath)'
 
-- task: TerraformCLI@0
-  inputs:
-    command: 'destroy'
-    workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
-    environmentServiceName: 'azure-resource-manager-service-connection'
+# DESTROY INFRA
+# - task: TerraformCLI@0
+#   inputs:
+#     command: 'destroy'
+#     workingDirectory: '$(System.DefaultWorkingDirectory)/configuration/iaac/azure/kubernetes'
+#     environmentServiceName: 'azure-resource-manager-service-connection'

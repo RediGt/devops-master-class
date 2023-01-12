@@ -38,7 +38,7 @@ stages:
 # Build
 # Build Docker
 # Push Docker => 100
-# Copy Files to Staging Directory
+# Copy Files to Staging Directory (deployment)
 # Publish
 - stage: Deploy
   displayName: Deploy image
@@ -59,10 +59,12 @@ stages:
         action: 'deploy'
         kubernetesServiceConnection: 'aws-kubernetes-cluster-service-connection'
         namespace: 'default'
-        manifests: '$(System.ArtifactsDirectory)/configuration/kubernetes/deployment.yaml'
+        # $(System.ArtifactsDirectory) - project root
+        # /configuration/manifests/deployment.yaml - location of manifests from the root
+        manifests: '$(System.ArtifactsDirectory)/configuration/manifests/deployment.yaml'
         containers: in28min/currency-exchange-devops:$(tag)
 
 # Deploy
-# Download 
+# Download artifact (deployment)
 # image:100 => Deploy to K8S 
 # apply - kubectl apply -f deployment.yaml

@@ -1,11 +1,9 @@
 # Kubernetes
-
 ## Projects
 - Hello World REST API
 - 2 Microservices - Currency Exchange and Currency Conversion
 
 ## Commands
-
 ```
 docker run -p 8080:8080 in28min/hello-world-rest-api:0.0.1.RELEASE
 

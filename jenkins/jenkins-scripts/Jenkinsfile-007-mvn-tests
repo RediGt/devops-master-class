@@ -44,36 +44,8 @@ pipeline {
 				sh "mvn failsafe:integration-test failsafe:verify"
 			}
 		}
-
-		stage('Package') {
-			steps {
-				// Create JAR file
-				sh "mvn package -DskipTests"
-			}
-		}
-
-		stage('Build Docker Image') {
-			steps {
-				script {
-					dockerImage = docker.build("redi2000/currency-exchange-devops:${env.BUILD_TAG}")
-				}
-
-			}
-		}
-
-		stage('Push Docker Image') {
-			steps {
-				script {
-					// 'dockerhub' - credential ID from dockerhub set in Jenkins admin
-					docker.withRegistry('', 'dockerhub') {
-						dockerImage.push();
-						dockerImage.push('latest');
-					}
-				}
-			}
-		}
 	}
-	
+
 	post { // Part that is conditionally executed after "STAGES
 		always {
 			echo 'Im awesome. I run always'
@@ -84,7 +56,5 @@ pipeline {
 		failure {
 			echo 'I run when you fail'
 		}
-		unstable {} // When tests fail
-		changed {} // When a status of the build changes (ex: #5 faild -> #6 success)
 	}
 }

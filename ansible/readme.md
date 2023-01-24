@@ -53,26 +53,28 @@ terraform apply
 ls ~/aws/aws_keys/ # Make sure that the keys file is present
 ```
 
+### Generic Commands
+```
+1) ssh -vvv -i ~/aws/aws_keys/Stockholm-KP.pem ec2-user@13.48.42.54 # Connect to EC2 manually
+2) chmod 400 ~/aws/aws_keys/Stockholm-KP.pem # Set read permissions to Private key file
+```
+
 ### Ansible Commands
 
 ```
 cd /in28Minutes/git/devops-master-class/ansible 
-ansible --version
-ansible -m ping all
-ansible all -a "whoami"
-ansible all -a "uname"
-ssh -vvv -i ~/aws/aws_keys/default-ec2.pem ec2-user@3.83.104.44
-ls ~/aws/aws_keys/default-ec2.pem
-chmod 400 /Users/rangaraokaranam/aws/aws_keys/default-ec2.pem
-ansible all -a "uname"
-ansible all -a "uname -a"
-ansible all -a "pwd"
-ansible all -a "python --version"
-ansible dev -a "python --version"
-ansible qa -a "python --version"
-ansible first -a "python --version"
-ansible groupofgroups -a "python --version"
-ansible devsubset -a "python --version"
+1) ansible --version
+2) ansible -m ping all                          # Try to connect to EC2
+3) ansible all -a "whoami"                      # Get users from EC2
+4) ansible all -a "uname"                       # Operating system of EC2
+5) ansible all -a "uname -a"                    # Operating system Details of EC2
+6) ansible all -a "pwd"
+7) ansible all -a "python --version"            # Call all EC2
+   ansible dev -a "python --version"            # Call [dev] EC2 - by host group
+   ansible qa -a "python --version"             # Call [qa] EC2 - by host group
+   ansible first -a "python --version"          # Call [first] EC2
+   ansible groupofgroups -a "python --version"  # Call [groupofgroups] EC2
+   ansible devsubset -a "python --version"      # Call [devsubset] EC2
 ansible --list-host all
 ansible --list-host dev
 ansible --list-host first
@@ -96,3 +98,12 @@ ansible-playbook playbooks/08-dynamic-inventory-ping.yml
 ansible-playbook playbooks/09-create-ec2.yml 
 
 ```
+
+<!-- ansible.csg -->
+[defaults]
+inventory=./ansible_hosts       # Here instances will be described
+remote_user=ec2-user            # Default user in EC2 Linux instances
+private_key_file=~/aws/aws_keys/Stockholm-KP.pem # Key-pair for EC2
+host_key_checking=False         # Make EC2 trust the Ansible
+retry_files_enabled=False       # Do not create retry file
+interpreter_python=auto_silent  # Disable warnings

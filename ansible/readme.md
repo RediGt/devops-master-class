@@ -89,15 +89,13 @@ cd /in28Minutes/git/devops-master-class/ansible
    ansible-playbook playbooks/06-playbooks.yml 
    ansible-playbook playbooks/07-conditionals-and-loops.yml
    ansible-playbook playbooks/08-dynamic-inventory-ping.yml
+   ansible-playbook playbooks/09-create-ec2.yml
 11)ansible-playbook playbooks/06-playbooks.yml --list-tasks # Get specific info for Hosts from Playbook
    ansible-playbook playbooks/06-playbooks.yml --list-hosts
    ansible-playbook playbooks/06-playbooks.yml --list-tags
 12)ansible-playbook -l dev playbooks/01-ping.yml # Override Hosts for Playbook - run only for [dev] hosts
 13)ansible-inventory --list                     # Get Hosts full info from Cloud
 14)ansible-inventory --graph                    # Get Hosts groups
- 
-ansible-playbook playbooks/09-create-ec2.yml 
-
 ```
 
 <!-- ansible.csg -->

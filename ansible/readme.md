@@ -75,26 +75,27 @@ cd /in28Minutes/git/devops-master-class/ansible
    ansible first -a "python --version"          # Call [first] EC2
    ansible groupofgroups -a "python --version"  # Call [groupofgroups] EC2
    ansible devsubset -a "python --version"      # Call [devsubset] EC2
-ansible --list-host all
-ansible --list-host dev
-ansible --list-host first
-ansible --list-host \!first
-ansible --list-host qa:dev
-ansible-playbook playbooks/01-ping.yml
-ansible-playbook playbooks/02-shell.yml 
-ansible-playbook playbooks/03-variables.yml 
-ansible-playbook playbooks/03-variables.yml -e variable1=CommandLineValue
-ansible-playbook playbooks/04-ansible-facts.yml 
-ansible-playbook playbooks/05-install-apache.yml 
-ansible-playbook playbooks/06-playbooks.yml 
-ansible-playbook playbooks/06-playbooks.yml --list-tasks
-ansible-playbook playbooks/06-playbooks.yml --list-hosts
-ansible-playbook playbooks/06-playbooks.yml --list-tags
-ansible-playbook -l dev playbooks/01-ping.yml
-ansible-playbook playbooks/07-conditionals-and-loops.yml 
-ansible-inventory --list
-ansible-inventory --graph
-ansible-playbook playbooks/08-dynamic-inventory-ping.yml 
+8) ansible --list-host all                      # Get full list of EC2
+   ansible --list-host dev                      # Get list of EC2 in [dev] group
+   ansible --list-host \!first                  # Get list of EC2 NOT in [first] group
+   ansible --list-host qa:dev                   # Get list of EC2 in 2 groups
+9) ansible qa -m setup                          # Get all Ansible info about EC2 (Hosts)
+10)ansible-playbook playbooks/01-ping.yml       # Execute playbook
+   ansible-playbook playbooks/02-shell-commands.yml 
+   ansible-playbook playbooks/03-variables.yml 
+   ansible-playbook playbooks/03-variables.yml -e variable1=CommandLineValue
+   ansible-playbook playbooks/04-ansible-facts.yml 
+   ansible-playbook playbooks/05-install-apache.yml 
+   ansible-playbook playbooks/06-playbooks.yml 
+   ansible-playbook playbooks/07-conditionals-and-loops.yml
+   ansible-playbook playbooks/08-dynamic-inventory-ping.yml
+11)ansible-playbook playbooks/06-playbooks.yml --list-tasks # Get specific info for Hosts from Playbook
+   ansible-playbook playbooks/06-playbooks.yml --list-hosts
+   ansible-playbook playbooks/06-playbooks.yml --list-tags
+12)ansible-playbook -l dev playbooks/01-ping.yml # Override Hosts for Playbook - run only for [dev] hosts
+13)ansible-inventory --list                     # Get Hosts full info from Cloud
+14)ansible-inventory --graph                    # Get Hosts groups
+ 
 ansible-playbook playbooks/09-create-ec2.yml 
 
 ```

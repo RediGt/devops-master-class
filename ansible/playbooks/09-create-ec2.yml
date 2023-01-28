@@ -1,18 +1,20 @@
 ---
+# Not recommended
+# Use TERRAFORM instead
 - hosts: localhost
   tasks:
     - ec2:
-        key_name: default-ec2
+        region: us-east-1
         instance_type: t2.micro
         image: ami-062f7200baf2fa504
-        region: us-east-1
-        #count: 1
+        key_name: default-ec2
+        # count: 1
         exact_count: 2
-        count_tag: {type: http}
+        count_tag: {type: http} # Max Count of instances limmited bt Tag
         vpc_subnet_id: subnet-75cb9912
         assign_public_ip: yes
         group: ["http_server_sg"]
         instance_tags: {type: http, Environment: QA}
         wait: yes
-      register: ec2_output
-    - debug: var=ec2_output
+      register: ec2_output # Output of command "EC2"
+    - debug: var=ec2_output # Print the result info

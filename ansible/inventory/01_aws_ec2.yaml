@@ -1,0 +1,17 @@
+plugin: aws_ec2
+region:
+  - eu-north-1
+keyed_groups: # Here we use groups by params available for AWS EC2
+  - prefix: arch # @arch_x86_64
+    key: 'architecture'
+  - prefix: tag # Tags assigned to EC2. We can assing differet tags to make griopings
+    key: 'tags'
+#   - prefix: aws_region
+#     key: placement.region
+  - key: tags.Environment # Useful: Groub by Tag value
+    separator: ''
+  # - key: instance_type
+  #   prefix: instance_type
+
+# !!! NOTE !!!
+# Dynamic inventory file should end with "...aws_ec2.yaml"

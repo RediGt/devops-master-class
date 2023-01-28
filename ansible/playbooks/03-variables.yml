@@ -1,0 +1,15 @@
+---
+- hosts: dev
+  vars_files:
+    - variables.yml
+  vars:
+    variable1: "PlayBookValue" # Setting variable
+  tasks:
+    - name: Variable Value
+      debug: msg="Value is {{ variable1 }}"
+
+# VARIABLE PRIORITY:
+#   Lowest:   vars
+#             vars_files
+#   Highest:  command line
+#             ansible-playbook playbooks/03-variables.yml -e variable1=CommandLineValue

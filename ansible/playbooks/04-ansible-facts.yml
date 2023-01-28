@@ -1,7 +1,7 @@
 ---
 - hosts: qa
   tasks:
-    - name: Kernel
+    - name: Kernel # Here we gather info on Ansible Facts
       debug: msg="{{ ansible_kernel }}"
     - name: Hostname
       debug: msg="{{ ansible_hostname }}"
@@ -9,6 +9,9 @@
       debug: msg="{{ ansible_distribution }}"
     - debug: var=ansible_architecture
     - debug: var=inventory_hostname
-    - debug: var=groups
-    - debug: var=group_names
-    - debug: var=hostvars
+    # - debug: var=groups
+    # - debug: var=group_names
+    # - debug: var=hostvars
+
+# GET ALL ANSIBLE FACTS
+#   ansible qa -m setup

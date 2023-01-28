@@ -1,20 +1,21 @@
 ---
 - hosts: qa
   vars:
-    system: "Windows"
+    system: "Linux"
+#     system: "Windows"
     color: "Red"
   tasks:
-#    - debug: var=hostvars
+    # - debug: var=hostvars
     - debug: var=ansible_system
-    - debug: var=color
+    - debug: var=color # Conditionally prints var value
       when: system == 'Linux'
-    - debug: var=item
+    - debug: var=item # Execute Task for all 4 items in a list
       with_items:
       - item1
       - item2
       - item3
       - item4
-    - debug: var=item.name
+    - debug: var=item.country
       with_items:
       - name: Ranga
         country: India

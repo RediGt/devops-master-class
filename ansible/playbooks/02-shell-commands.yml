@@ -1,0 +1,8 @@
+---
+- hosts: qa # Specify Host Group
+  tasks:
+    - name: Execute Shell Commands
+      shell: uname # Specify shell command
+      register: uname_result # Store command output in a variable "uname_result"
+    - debug: msg="{{ uname_result.stdout }}" # Print required result
+    # - debug: msg="{{ uname_result }}" # Print whole Response object

@@ -1,0 +1,12 @@
+---
+- hosts: dev
+  become: true # Run as Root User 
+  tasks:
+    - yum: # yum install httpd
+        name:
+          - httpd
+        state: present
+    - service: name=httpd state=started enabled=yes # Run httpd
+    - raw: "echo Welcome to in28minutes | sudo tee /var/www/html/index.html" # Write into file
+
+# VERIFY by pasting host IP in browser
